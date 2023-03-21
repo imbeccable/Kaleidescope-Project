@@ -1,0 +1,130 @@
+<!-- 
+Name: Becca Nika
+NetID: rnika3 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <h1 alignment="center">Kaleidescope by Becca Nika (rnika3)</h1>
+    <style>
+        .slider {
+            width:1000px;
+        }
+    </style>
+    <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition;
+    attribute vec4 vColor;
+    varying vec4 f_color;
+    uniform mat4 uModelXform;
+
+    void main()
+    {
+        gl_Position = uModelXform * vPosition;
+        f_color = vColor;
+
+    }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+
+    varying vec4 f_color;
+
+    void main()
+    {
+        
+        gl_FragColor = f_color;
+        
+    }
+    </script>
+        
+    <script type="text/javascript" src="./Common/MV.js"></script>
+    <script type="text/javascript" src="./Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="./Common/initShaders.js"></script>
+    <script type="text/javascript" src="triangle.js"></script>
+</head>
+
+<body>
+    <style>
+        .slidercontainer {
+            width:30em;
+        }
+        
+        .slider {
+        width: 100%;
+        height: 10px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 10px;
+        height: 10px;
+        background: #04AA6D;
+        cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #04AA6D;
+        cursor: pointer;
+        }
+        .box {
+            width: 30em;
+            padding: 8px 12px;
+        }
+
+    </style>
+    <canvas id="gl-canvas" width="512" height="512">
+    Oops ... your browser doesn't support the HTML5 canvas element
+    </canvas>
+    
+    <div class="slidercontainer">
+        <!-- changes the number of sections -->
+        <p>Number of sections</p>
+        <input id="nslider" type="range" class="slider" min="4" max="20" step="2" value="10" onchange="change_n(value)">        
+        <p>Value: <span id="noutput"></span></p> 
+        <p>Number of shapes per section</p>
+        <!-- changes the number of shapes per sections -->
+        <input id="tslider" type="range" class="slider" min="4" max="20" step="1" value="10" onchange="change_num_t(value)">  
+        <!-- reloads the page -->
+        <button onclick="window.onload()" id="reset">Go</button>
+        <p>Value: <span id="toutput"></span></p>      
+    </div>
+    
+    <p></p>
+    </div>
+        <script>
+            //changes output for the number of shapes in each section
+            var noutput = document.getElementById("noutput");
+            var toutput = document.getElementById("toutput");
+
+            noutput.innerHTML = nslider.value *2;
+            nslider.oninput = function() {
+                noutput.innerHTML = this.value * 2;
+            }
+
+            toutput.innerHTML = tslider.value;
+            tslider.oninput = function() {
+                toutput.innerHTML = this.value;
+            }
+        </script>
+    </div>
+    <div class="box">
+        <p>This program utlizes WebGl by creating triangles at random points duplicated, flipped, and transposed
+            a certain number of times about an origin point to create a kaleidescopic effect. The number of slices
+            to this image is depending first on a randomly generated number with a base line number of 4, and then  
+            can be altered by user input via a slider. The number of shapes within each section is given an initial value and 
+            then can be determined based on user input via a slider, with a range from 4 to 20.
+        </p>
+    </div>
+
+</body>
+</html>
