@@ -1,3 +1,5 @@
+Link to demonstration: https://imbeccable.github.io/Kaleidescope-Project/
+
 Common files:
 
 webgl-utils.js: standard utilities from google to set up a webgl context
